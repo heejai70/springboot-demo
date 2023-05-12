@@ -1,0 +1,72 @@
+package com.example.springboot_demo.service;
+
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.example.springboot_demo.dao.UserRepository;
+import com.example.springboot_demo.model.User;
+
+@Service
+public class UserServiceImpl implements UserService {
+    @Autowired
+    private UserRepository userRepository;
+
+    public Map<String, String> getMessage() {
+        return userRepository.getMessage();
+    }
+
+    @Override
+    public List<User> getUsers() {
+        return userRepository.getAllUsers();
+    }
+
+    @Override
+    public User getUserById(Integer userid) {
+        return userRepository.getUserByUserid(userid);
+    }
+
+    @Override
+    public User registUser(User user) {
+//        System.out.println("called UserService.registUser()");
+        return userRepository.insertUser(user);
+    }
+    @Override
+    public void modifyUser(Integer userid, User user) {
+        user.setUserid(userid);
+        userRepository.updateUser(user);
+    }
+    @Override
+    public void removeUser(Integer userid) {
+        userRepository.deleteUser(userid);
+    }
+
+    // @Override
+    // public List<User> getUser(Integer userid) {
+    //     return users.stream()
+    //     .filter(x-> x.getUserid() == userid)
+    //     .findAny()
+    //     .orElse(new User(0, "Not Available"));
+    // }
+
+    // @Override
+    // public void createUser(Integer userid, String username) {
+    //     User user = new User(userid, username);
+    //     this.users.add(user);
+    // }    
+    // @Override
+    // public void updateUser(Integer userid, String username) {
+    //     users.stream()
+    //         .filter(x -> x.getUserid == userid)
+    //         .findAny()
+    //         .orElseThrow(() -> new RutimeException("Item not found"))
+    //         .setUsername(username);
+    // }    
+    // @Override
+    // public void deleteUser(Integer userid) {
+    //     users.removeIf((User u) -> u.getUserid() == userid);
+    // }    
+
+}
